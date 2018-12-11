@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<vector<int> > DFS(vector<vector<int > > g);
+void DFSnode(vector<vector<int> > *g, int index, vector<bool> *visited, int *time , vector <vector <int> > *times);
+int main(){
+
+	vector< vector <int> > g(6);
+	g[0].push_back(1);
+	g[0].push_back(3);
+
+	g[1].push_back(4);
+
+	g[2].push_back(4);
+	g[2].push_back(5);
+	
+	g[3].push_back(1);
+
+	g[4].push_back(3);
+	g[5].push_back(5);
+
+	DFS(g);
+	//TopologicalSort(g);
+
+}
+
+vector<vector<int> > DFS(vector<vector<int > > g){
+	vector<bool> visited(6);
+	for (int i =0; i < 6; i++){
+		visited[i]=false;
+	}
+	vector <vector <int> > times(6);
+	int time = 0;
+	for (int i =0; i<g.size(); i++){
+		if (!visited[i]){
+			visited[i] = true;
+			DFSnode(&g , i , &visited , &time , &times);
+		}
+	}
+	return times;
+}
+
+void DFSnode(vector<vector<int> > *g, int index, vector<bool> *visited, int *time , vector <vector <int> > *times){
+	(*time)++;
+	cout << "begin " << index << " : " << *time << endl;
+	(*times)[index].push_back(*time);
+	for (int i = 0; i< (*g)[index].size(); i++){
+		int node = (*g)[index][i];
+		if (!((*visited)[node])){
+			(*visited)[node] = 1;
+			DFSnode(&(*g) , (*g)[index][i] , &(*visited) , &(*time) , &(*times));
+		}
+	}
+	(*time)++;
+	cout << "end " << index << " : " << *time << endl;
+	(*times)[index].push_back(*time);
+	return;
+}
