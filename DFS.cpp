@@ -6,6 +6,7 @@ using namespace std;
 vector<vector<int> > DFS(vector<vector<int > > g);
 void DFSnode(vector<vector<int> > *g, int index, vector<bool> *visited, int *time , vector <vector <int> > *times);
 void TopologicalSort(vector<vector<int> > g);
+vector<vector<int > > Transpose(vector<vector<int > > *g);
 
 int main(){
 
@@ -23,8 +24,18 @@ int main(){
 	g[4].push_back(3);
 	g[5].push_back(5);
 
-	DFS(g);
+	//DFS(g);
 	//TopologicalSort(g);
+	vector <vector < int > > gT(Transpose(&g));
+
+	for (int i = 0 ; i < gT.size() ; i++){
+		cout << i << " : ";
+		for (int j = 0; j < gT[i].size() ; j++){
+			cout << gT[i][j] << " ";
+		}
+		cout << endl;
+	}
+	
 
 }
 
@@ -77,3 +88,16 @@ void TopologicalSort(vector<vector<int> > g){
 		cout << tp[i][0] << " " << tp[i][1] << endl;
 	}
 }
+
+
+vector<vector<int > > Transpose(vector<vector<int > > *g){
+	vector<vector<int> > gT((*g).size());
+
+	for (int i = 0 ; i < (*g).size() ; i++){
+		for (int j = 0; j < (*g)[i].size() ; j++){
+			gT[(*g)[i][j]].push_back(i);
+		}
+	}
+	return gT;
+}
+
