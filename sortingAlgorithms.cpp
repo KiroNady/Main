@@ -2,6 +2,7 @@
 #include <array>
 #include <limits>
 #include <tuple>
+#include <stdlib.h>     /* srand, rand */
 
 
 using namespace std;
@@ -18,6 +19,8 @@ int Left(int i);
 int Right(int i);
 void BuildMax_Heap(int *A , int n);
 void HeapSort(int* A , int n);
+int Partition (int *A , int p , int r);
+int Random(int p , int r);
 
 int main(){
 	int A[] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
@@ -217,7 +220,7 @@ void HeapSort(int* A , int n){
 void QuickSort (int *A , int p , int r){
 
 	if (p < r){
-		q = Partition(A,p,r);
+		int q = Partition(A,p,r);
 		QuickSort(A , p , q-1);
 		QuickSort(A , q+1 , r);
 	}
@@ -266,5 +269,9 @@ int Randomized_Select(int *A , int p , int r , int i){
 	else {
 		return Randomized_Select(A, q+1 , r , i-k);
 	}
+}
+
+int Random(int p , int r){
+	int x = rand()%(r-p) +p;
 }
 
