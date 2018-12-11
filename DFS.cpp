@@ -5,6 +5,8 @@ using namespace std;
 
 vector<vector<int> > DFS(vector<vector<int > > g);
 void DFSnode(vector<vector<int> > *g, int index, vector<bool> *visited, int *time , vector <vector <int> > *times);
+void TopologicalSort(vector<vector<int> > g);
+
 int main(){
 
 	vector< vector <int> > g(6);
@@ -57,4 +59,21 @@ void DFSnode(vector<vector<int> > *g, int index, vector<bool> *visited, int *tim
 	cout << "end " << index << " : " << *time << endl;
 	(*times)[index].push_back(*time);
 	return;
+}
+
+bool sortcol(vector<int> v1 , vector<int> v2){
+	return v1[1] < v2[1];
+}
+
+void TopologicalSort(vector<vector<int> > g){
+
+	vector <vector<int> > tp(DFS(g));
+	for(int i = 0; i < tp.size() ; i++){
+		cout << tp[i][0] << " " << tp[i][1] << endl;
+	}
+	sort(tp.begin() , tp.end(), sortcol);
+	cout << "sorted " << endl;
+	for(int i = 0; i < tp.size() ; i++){
+		cout << tp[i][0] << " " << tp[i][1] << endl;
+	}
 }
